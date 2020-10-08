@@ -5,13 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private TextView display;
     private TextView preview;
     private String f_number;
     private  String s_number;
+    private String operation;
     private int result;
+    private Boolean isresult = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,20 @@ public class MainActivity extends AppCompatActivity {
     public void OnClick9(View v){
         AtualizarDisplay(9);
     }
+
+    public void OnClickPlus(View v){
+        SetOperation("+");
+    }
+    public void OnClickMinus(View v){
+        SetOperation("-");
+    }
+    public void OnClickDiv(View v){
+        SetOperation("/");
+    }
+    public void OnClickMulti(View v){
+        SetOperation("*");
+    }
+
     public void OnClickRemove(View v){
         String n_string = display.getText().toString();
         if(n_string.length()>1){
@@ -59,18 +76,31 @@ public class MainActivity extends AppCompatActivity {
         }
         display.setText(n_string);
     }
-    public void OnClickPlus(View v){
-        SetOperation("+");
-    }
     public void OnClickReset(View v){
-        f_number = null;
-        s_number = null;
+        SetNullNumbers();
         display.setText("0");
         preview.setText("");
+    }
+    public void OnClickResult(View v){
+        if(isresult ==false && f_number != null){
+            s_number = display.getText().toString();
+            Calculate(Convert(f_number),Convert(s_number),operation);
+            DisplayResult();
+        }
+
     }
     private int Convert (String number){
         int val = Integer.valueOf(number);
         return val;
+    }
+    private void SetNullNumbers(){
+        f_number = null;
+        s_number = null;
+    }
+    private void DisplayResult(){
+        String pv = preview.getText().toString() + s_number + "=";
+        preview.setText(pv);
+        display.setText(String.valueOf(result));
     }
     private void Calculate(int num1, int num2, String operator){
         switch (operator){
@@ -87,33 +117,42 @@ public class MainActivity extends AppCompatActivity {
                 result = num1 * num2;
                 break;
         }
+        isresult = true;
+        operation = null;
     }
     private void SetOperation(String operator){
         if(f_number== null){
-            f_number = display.toString();
-            preview.setText(f_number);
+            f_number = display.getText().toString();
+            preview.setText(f_number+operator);
+            operation = operator;
             display.setText("0");
         }
         else if(s_number==null) {
-            s_number = display.toString();
+            s_number = display.getText().toString();
             Calculate(Convert(f_number),Convert(s_number),operator);
-            display.setText(result);
+            DisplayResult();
         }else{
-            f_number = String.valueOf(result);
-            s_number = display.toString();
-            Calculate(Convert(f_number),Convert(s_number),operator);
-            display.setText(result);
+            f_number = display.getText().toString();
+            preview.setText(f_number+operator);
+            operation = operator;
+            display.setText("0");
+            s_number = null;
         }
     }
     private void AtualizarDisplay(int numero){
         String n_string = display.getText().toString();
         if(n_string.equals("0")){
             display.setText(""+numero);
-        }else {
+        }else if(isresult == true && operation == null){
+            display.setText(""+numero);
+            preview.setText("");
+            SetNullNumbers();
+        }
+        else {
             n_string = n_string + numero;
             display.setText(n_string);
         }
-
+        isresult = false;
     }
 
 }

@@ -13,7 +13,7 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/btn_reset"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_weight="0"
@@ -25,8 +25,12 @@
             android:id="@+id/textPreview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:textAlignment="textEnd" />
+            android:layout_weight="0"
+            android:freezesText="false"
+            android:gravity="bottom|right"
+            android:textSize="18sp"
+            android:verticalScrollbarPosition="defaultPosition" />
+
     </LinearLayout>
 
     <TextView
@@ -120,6 +124,7 @@
             android:layout_width="wrap_content"
             android:layout_height="80sp"
             android:layout_weight="1"
+            android:onClick="OnClickMinus"
             android:text="-"
             android:textSize="36sp" />
     </LinearLayout>
@@ -157,7 +162,7 @@
             android:textSize="36sp" />
 
         <Button
-            android:id="@+id/btn_division"
+            android:id="@+id/btn_plus"
             android:layout_width="wrap_content"
             android:layout_height="80sp"
             android:layout_weight="1"
@@ -172,11 +177,11 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/btn_division"
+            android:id="@+id/btn_div"
             android:layout_width="wrap_content"
             android:layout_height="80sp"
             android:layout_weight="1"
-            android:onClick="OnClick1"
+            android:onClick="OnClickDiv"
             android:text="÷"
             android:textSize="36sp" />
 
@@ -194,7 +199,7 @@
             android:layout_width="wrap_content"
             android:layout_height="80sp"
             android:layout_weight="1"
-            android:onClick="OnClick1"
+            android:onClick="OnClickMulti"
             android:text="x"
             android:textSize="36sp" />
 
@@ -203,7 +208,7 @@
             android:layout_width="wrap_content"
             android:layout_height="80sp"
             android:layout_weight="1"
-            android:onClick="OnClick1"
+            android:onClick="OnClickResult"
             android:text="="
             android:textSize="36sp" />
     </LinearLayout>
