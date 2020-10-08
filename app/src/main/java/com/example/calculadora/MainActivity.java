@@ -111,7 +111,15 @@ public class MainActivity extends AppCompatActivity {
                 result = num1 - num2;
                 break;
             case "/":
-                result = num1 / num2;
+                if(s_number.equals("0")){
+                    Toast.makeText(MainActivity.this,"Não é possível dividir por zero",Toast.LENGTH_LONG).show();
+                    SetNullNumbers();
+                    operation = null;
+                    display.setText("0");
+                    preview.setText("");
+                }else {
+                    result = num1 / num2;
+                }
                 break;
             case  "*":
                 result = num1 * num2;
